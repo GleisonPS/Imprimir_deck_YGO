@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de Usuários</title>
+</head>
+<body>
+    <h2>Usuários</h2>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>Idade</th>
+            </tr>
+        </thead>
+        <tbody id="tabela-usuarios">
+            <!-- Os dados serão inseridos aqui via JavaScript -->
+        </tbody>
+    </table>
+
+    <script>
+        async function carregarUsuarios() {
+            try {
+                const response = await fetch('api/usuarios/');
+                const data = await response.json();
+                
+                const tabela = document.getElementById('tabela-usuarios');
+                data.dados.forEach(usuario => {
+                    const linha = `
+                        <tr>
+                            <td>${usuario.id}</td>
+                            <td>${usuario.nome}</td>
+                            <td>${usuario.idade}</td>
+                        </tr>
+                    `;
+                    tabela.insertAdjacentHTML('beforeend', linha);
+                });
+            } catch (error) {
+                console.error('Erro ao carregar usuários:', error);
+            }
+        }
+
+        carregarUsuarios();
+    </script>
+</body>
+</html>
