@@ -1,6 +1,6 @@
 from django.shortcuts import render
-from django.urls import path
 from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt  # importante!
 
 # Create your views here.
 def pagina_usuarios(request):
@@ -21,3 +21,19 @@ def listar_usuarios(request):
         {"id":10, "ah": "Tatiane", "idade": 26}
     ]
     return JsonResponse({"dados": usuarios})
+
+def teste(request):
+    return render(request, 'lista.html')
+
+# views.py
+
+
+@csrf_exempt  # isso desativa o CSRF (pra testes; depois podemos melhorar)
+def receber_carrinho(request):
+    if request.method == 'POST':
+        import json
+        dados = json.loads(request.body)
+        print("Cartas recebidas:", dados)
+        return JsonResponse({'mensagem': 'Carrinho recebido com sucesso!'})
+    
+    return JsonResponse({'erro': 'Método não permitido'}, status=405)

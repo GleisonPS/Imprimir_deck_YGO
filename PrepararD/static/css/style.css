@@ -1,0 +1,56 @@
+body {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+}
+
+.busca {
+    margin-bottom: 20px;
+}
+
+.card-container {
+    max-width: 800px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.card {
+    display: flex;
+    border: 1px solid #ccc;
+    padding: 15px;
+    border-radius: 10px;
+    background: #f8f8f8;
+    gap: 20px;
+}
+
+.card img {
+    width: 200px;
+    border-radius: 8px;
+}
+
+.card-info {
+    flex: 1;
+}
+
+.desc {
+    margin-top: 10px;
+    background: #fff;
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid #ddd;
+}
+
+.carrinho {
+    margin-top: 30px;
+    border-top: 2px dashed #ccc;
+    padding-top: 20px;
+}
+
+.carrinho ul {
+    list-style: none;
+    padding: 0;
+}
+
+.carrinho button {
+    margin-top: 10px;
+}
