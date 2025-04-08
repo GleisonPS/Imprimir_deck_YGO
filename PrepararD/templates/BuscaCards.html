@@ -1,0 +1,30 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>BuscaCard</title>
+  <link rel="stylesheet" href="{% static 'css/BuscarCards.css' %}">
+</head>
+<body>
+
+  <!-- MENU FIXO NO TOPO -->
+  <div class="menu-topo">
+    <div class="menu">
+      <a href="teste" class="menu-btn">resumo</a>
+      <button onclick="toggleDropdown()" class="menu-btn">Cartas ▾</button>
+      <div id="dropdownCartas" class="dropdown-content">
+        <!-- Cartas adicionadas aparecerão aqui -->
+      </div>
+    </div>
+  </div>
+
+  <!-- CAMPO DE BUSCA -->
+  <input type="text" id="busca" placeholder="Buscar cartas..." oninput="buscarCartas()">
+
+  <!-- RESULTADO DOS CARDS -->
+  <div class="cards-container" id="cards"></div>
+
+  <script src="{% static 'js/BuscarCards.js' %}"></script>
+</body>
+</html>

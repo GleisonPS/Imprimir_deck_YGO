@@ -23,13 +23,18 @@ def listar_usuarios(request):
     return JsonResponse({"dados": usuarios})
 
 def teste(request):
-    return render(request, 'lista.html')
+    return render(request, 'resumo.html')
+
+
+def BuscarCards(request):
+    return render(request, 'BuscaCards.html')
 
 # views.py
 
 
 @csrf_exempt  # isso desativa o CSRF (pra testes; depois podemos melhorar)
 def receber_carrinho(request):
+    print("Recebendo carrinho...")
     if request.method == 'POST':
         import json
         dados = json.loads(request.body)
