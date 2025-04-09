@@ -8,15 +8,24 @@
 </head>
 <body>
 
-  <!-- MENU FIXO NO TOPO -->
+  <nav class="menu-topo">
+    <ul>
+      <li><a href="{% url 'home' %}">Home</a></li>
+      <li><a href="{% url 'BuscaCard' %}">Buscar Carta</a></li>
+      <li><a href="#">Deck</a></li>
+      <li class="dropdown">
+        <button class="dropbtn">Cartas 🂠</button>
+        <div class="dropdown-content" id="lista-carrinho">
+          <p style="color: #fffbe6;">Nenhuma carta adicionada.</p>
+          <button class="botao" onclick="enviarCartas()">Enviar Cartas</button>
+        </div>
+      </li>
+    </ul>
+  </nav>
+  
+  
   <div class="menu-topo">
-    <div class="menu">
-      <a href="teste" class="menu-btn">resumo</a>
-      <button onclick="toggleDropdown()" class="menu-btn">Cartas ▾</button>
-      <div id="dropdownCartas" class="dropdown-content">
-        <!-- Cartas adicionadas aparecerão aqui -->
-      </div>
-    </div>
+    
   </div>
 
   <!-- CAMPO DE BUSCA -->

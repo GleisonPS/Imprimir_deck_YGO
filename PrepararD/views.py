@@ -22,7 +22,7 @@ def listar_usuarios(request):
     ]
     return JsonResponse({"dados": usuarios})
 
-def teste(request):
+def home(request):
     return render(request, 'resumo.html')
 
 

@@ -4,9 +4,21 @@
 <head>
   <meta charset="UTF-8">
   <title>Resumo das Cartas</title>
-  <link rel="stylesheet" href="{% static 'seu_app/style.css' %}">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!--Fonte e link CSS-->
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="{% static 'css/resumo.css' %}">
 </head>
 <body>
+  <nav class="menu-topo">
+    <ul>
+      <li><a href="#">Home</a></li>
+      <li><a href="{% url 'BuscaCard' %}">Buscar Carta</a></li>
+      <li><a href="#">Deck</a></li>
+    </ul>
+  </nav>
+  
   <h1>Resumo das Cartas Selecionadas</h1>
   <div id="resumo-cartas"></div>
 
