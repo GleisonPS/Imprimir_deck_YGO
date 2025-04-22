@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
-    const carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
+    const carrinho = JSON.parse(localStorage.getItem('cart-item')) || [];
     const container = document.getElementById('resumo-cartas');
   
     if (carrinho.length === 0) {

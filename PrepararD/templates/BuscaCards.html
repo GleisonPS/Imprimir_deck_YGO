@@ -8,6 +8,7 @@
 </head>
 <body>
 
+  <!-- 🔷 Menu de navegação fixo -->
   <nav class="menu-topo">
     <ul>
       <li><a href="{% url 'home' %}">Home</a></li>
@@ -17,23 +18,24 @@
         <button class="dropbtn">Cartas 🂠</button>
         <div class="dropdown-content" id="lista-carrinho">
           <p style="color: #fffbe6;">Nenhuma carta adicionada.</p>
-          <button class="botao" onclick="enviarCartas()">Enviar Cartas</button>
         </div>
       </li>
     </ul>
   </nav>
-  
-  
-  <div class="menu-topo">
+  <main>
+    <h1>Buscar Cartas</h1>
+
+    <input type="text" id="input-busca" placeholder="Digite o nome da carta (mín. 3 letras)...">
+
+    <div id="resultado-busca" class="resultado-cartas">
+      <!-- Resultado da busca será exibido aqui -->
+    </div>
+    <div id="preview-card" class="preview-card" style="display: none;">
+      <img id="preview-img" src="" alt="Prévia da carta">
+      <p id="preview-desc"></p>
+    </div>
     
-  </div>
-
-  <!-- CAMPO DE BUSCA -->
-  <input type="text" id="busca" placeholder="Buscar cartas..." oninput="buscarCartas()">
-
-  <!-- RESULTADO DOS CARDS -->
-  <div class="cards-container" id="cards"></div>
-
+  </main>
   <script src="{% static 'js/BuscarCards.js' %}"></script>
 </body>
 </html>

@@ -1,154 +1,162 @@
-
 let carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
 
-document.addEventListener("DOMContentLoaded", () => {
-    // Recupera carrinho salvo, se existir
-    carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
-    atualizarCarrinho(); // Atualiza a interface
-});
-  
-function toggleDropdown() {
-  const dropdown = document.getElementById('dropdownCartas');
-  dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
-}
-
-function adicionarAoCarrinho(carta) {
-  const existente = carrinho.find(item => item.id === carta.id);
-
-  if (existente) {
-    if (existente.quantidade < 3) {
-      existente.quantidade += 1;
-    } else {
-      alert('Máximo de 3 cópias permitido.');
-    }
-  } else {
-    carrinho.push({ ...carta, quantidade: 1 });
-  }
-
-  atualizarCarrinho();
-}
-
-function alterarQuantidade(id, delta) {
-  const carta = carrinho.find(item => item.id === id);
-  if (!carta) return;
-
-  carta.quantidade += delta;
-
-  if (carta.quantidade < 1) {
-    const index = carrinho.findIndex(item => item.id === id);
-    carrinho.splice(index, 1);
-  } else if (carta.quantidade > 3) {
-    carta.quantidade = 3;
-  }
-
-  atualizarCarrinho();
-}
-
-function atualizarCarrinho() {
-    localStorage.setItem('carrinho', JSON.stringify(carrinho));
-
-    const dropdown = document.getElementById('dropdownCartas');
-    dropdown.innerHTML = '';
-
-    if (carrinho.length === 0) {
-        dropdown.innerHTML = '<p style="text-align:center;">Nenhuma carta adicionada.</p>';
-        return;
-    }
-
-    carrinho.forEach(carta => {
-        const div = document.createElement('div');
-        div.classList.add('cart-item');
-        div.innerHTML = `
-        <img src="${carta.imagem}" alt="${carta.nome}">
-        <div>
-            <strong>${carta.nome}</strong><br>
-            Quantidade: 
-            <button onclick="alterarQuantidade(${carta.id}, -1)">–</button> 
-            ${carta.quantidade} 
-            <button onclick="alterarQuantidade(${carta.id}, 1)">+</button>
-        </div>
-        `;
-        dropdown.appendChild(div);
-    });
-
-    const btnEnviar = document.createElement('button');
-    btnEnviar.innerText = 'Enviar Cartas';
-    btnEnviar.className = 'enviar-btn';
-    btnEnviar.onclick = enviarCartas;
-
-    dropdown.appendChild(btnEnviar);
-}
-
-function buscarCartas() {
-  const termo = document.getElementById('busca').value.trim();
-  const container = document.getElementById('cards');
-
-  if (termo.length < 3) {
-    container.innerHTML = '<p>Digite pelo menos 3 letras para buscar.</p>';
-    return;
-  }
-
-  fetch(`https://db.ygoprodeck.com/api/v7/cardinfo.php?fname=${encodeURIComponent(termo)}`)
-    .then(res => res.json())
-    .then(data => {
-      if (!data.data || data.data.length === 0) {
-        container.innerHTML = '<p>Nenhuma carta encontrada.</p>';
-        return;
-      }
-
-      container.innerHTML = '';
-      data.data.forEach(carta => {
-        const div = document.createElement('div');
-        div.className = 'card';
-        div.innerHTML = `
-          <img src="${carta.card_images[0].image_url}" alt="${carta.name}">
-          <h4>${carta.name}</h4>
-          <button onclick="adicionarAoCarrinho({
-            id: ${carta.id},
-            nome: '${carta.name.replace(/'/g, "\\'")}',
-            imagem: '${carta.card_images[0].image_url}'
-          })">Adicionar</button>
-        `;
-        container.appendChild(div);
-      });
-    })
-    .catch(() => {
-      container.innerHTML = '<p>Erro ao buscar cartas.</p>';
-    });
-}
-
-function enviarCartas() {
-  fetch('/api/carrinho/', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'X-CSRFToken': getCSRFToken()
-    },
-    body: JSON.stringify({ cartas: carrinho })
-  })
-  .then(res => res.json())
-  .then(data => {
-    alert('Cartas enviadas com sucesso!');
-    carrinho.length = 0;
-    atualizarCarrinho();
-  })
-  .catch(err => {
-    alert('Erro ao enviar cartas.');
-    console.error(err);
-  });
-}
-
-function getCSRFToken() {
+function getCookie(name) {
   let cookieValue = null;
   if (document.cookie && document.cookie !== '') {
     const cookies = document.cookie.split(';');
-    for (let i = 0; i < cookies.length; i++) {
-      const cookie = cookies[i].trim();
-      if (cookie.substring(0, 10) === 'csrftoken=') {
-        cookieValue = decodeURIComponent(cookie.substring(10));
+    for (let cookie of cookies) {
+      cookie = cookie.trim();
+      if (cookie.startsWith(name + '=')) {
+        cookieValue = decodeURIComponent(cookie.split('=')[1]);
         break;
       }
     }
   }
   return cookieValue;
 }
+
+function atualizarCarrinho() {
+  const container = document.getElementById('lista-carrinho');
+  if (!container) return;
+
+  container.innerHTML = '';
+
+  if (carrinho.length === 0) {
+    container.innerHTML = '<p style="color: #fffbe6;">Nenhuma carta adicionada.</p>';
+    return;
+  }
+
+  carrinho.forEach(carta => {
+    const itemDiv = document.createElement('div');
+    itemDiv.className = 'carrinho-item';
+    itemDiv.style.display = 'flex';
+    itemDiv.style.justifyContent = 'space-between';
+    itemDiv.style.alignItems = 'center';
+    itemDiv.style.marginBottom = '5px';
+    itemDiv.style.gap = '10px';
+
+    itemDiv.innerHTML = `
+      <span style="color: white;">${carta.nome} x${carta.quantidade}</span>
+      <div>
+        <button onclick="alterarQtd('${carta.nome}', -1)">➖</button>
+        <button onclick="alterarQtd('${carta.nome}', 1)">➕</button>
+      </div>
+    `;
+
+    container.appendChild(itemDiv);
+  });
+
+  const btn = document.createElement('button');
+  btn.className = 'botao';
+  btn.innerText = 'Enviar Cartas';
+  btn.onclick = enviarCartas;
+  container.appendChild(btn);
+}
+
+function alterarQtd(nome, delta) {
+  const item = carrinho.find(c => c.nome === nome);
+
+  if (!item && delta > 0) {
+    carrinho.push({ nome: nome, quantidade: 1 });
+  } else if (item) {
+    item.quantidade += delta;
+    if (item.quantidade <= 0) {
+      carrinho = carrinho.filter(c => c.nome !== nome);
+    } else if (item.quantidade > 3) {
+      item.quantidade = 3;
+    }
+  }
+
+  localStorage.setItem('carrinho', JSON.stringify(carrinho));
+  atualizarCarrinho();
+  buscarCartas(); // Atualiza a exibição
+}
+
+function enviarCartas() {
+  fetch('/sua-rota-django/', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'X-CSRFToken': getCookie('csrftoken'),
+    },
+    body: JSON.stringify(carrinho),
+  })
+    .then(res => res.json())
+    .then(data => alert('Cartas enviadas com sucesso!'))
+    .catch(() => alert('Erro ao enviar cartas.'));
+}
+
+function buscarCartas() {
+  const termo = document.getElementById('input-busca').value.trim();
+  const container = document.getElementById('resultado-busca');
+  container.innerHTML = '';
+
+  if (termo.length < 3) return;
+
+  fetch(`https://db.ygoprodeck.com/api/v7/cardinfo.php?fname=${termo}`)
+    .then(res => res.json())
+    .then(data => {
+      const cards = data.data;
+      cards.forEach(card => {
+        const nome = card.name;
+        const imagem = card.card_images[0].image_url;
+        const desc = card.desc;
+
+        const item = carrinho.find(c => c.nome === nome);
+        const quantidade = item ? item.quantidade : 0;
+
+        const div = document.createElement('div');
+        div.className = 'card-item';
+        div.innerHTML = `
+          <img src="${imagem}" alt="${nome}">
+          <h3>${nome}</h3>
+          <p>${desc}</p>
+          <div class="botoes">
+            <button onclick="alterarQtd('${nome}', -1)">➖</button>
+            <span style="margin: 0 10px;">${quantidade}</span>
+            <button onclick="alterarQtd('${nome}', 1)">➕</button>
+          </div>
+        `;
+
+        div.addEventListener('mouseover', () => {
+          const preview = document.getElementById('preview-card');
+          document.getElementById('preview-img').src = imagem;
+          document.getElementById('preview-desc').innerText = desc;
+          preview.style.display = 'block';
+        });
+
+        div.addEventListener('mouseout', () => {
+          const preview = document.getElementById('preview-card');
+          preview.style.display = 'none';
+        });
+
+        container.appendChild(div);
+      });
+    })
+    .catch(() => {
+      container.innerHTML = '<p style="color: red;">Erro ao buscar cartas.</p>';
+    });
+}
+
+function verificarCarrinhoSalvo() {
+  if (carrinho.length > 0) {
+    atualizarCarrinho();
+  }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  atualizarCarrinho();
+  verificarCarrinhoSalvo();
+
+  const input = document.getElementById('input-busca');
+  if (input) {
+    console.log("Input de busca encontrado.");
+    input.addEventListener('input', () => {
+      console.log("Buscando cartas...");
+      buscarCartas();
+    });
+  } else {
+    console.warn("Campo de busca não encontrado!");
+  }
+});
+
