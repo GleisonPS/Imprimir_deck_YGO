@@ -77,6 +77,22 @@ function atualizarCarrinho() {
     btnEnviar.onclick = enviarCartas;
 
     dropdown.appendChild(btnEnviar);
+function enviarCartas() {
+  fetch(newFunction(), {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'X-CSRFToken': getCookie('csrftoken'),
+    },
+    body: JSON.stringify(carrinho),
+  })
+    .then(res => res.json())
+    .then(data => alert('Cartas enviadas com sucesso!'))
+    .catch(() => alert('Erro ao enviar cartas.'));
+
+  function newFunction() {
+    return 'api/carrinho/';
+  }
 }
 
 function buscarCartas() {
@@ -151,4 +167,5 @@ function getCSRFToken() {
     }
   }
   return cookieValue;
+}
 }
