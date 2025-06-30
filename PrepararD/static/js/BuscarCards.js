@@ -73,7 +73,7 @@ function alterarQtd(nome, delta) {
 }
 
 function enviarCartas() {
-  fetch('/sua-rota-django/', {
+  fetch('/api/carrinho/', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -88,7 +88,7 @@ function enviarCartas() {
 
 function buscarCartas() {
   const termo = document.getElementById('input-busca').value.trim();
-  const container = document.getElementById('resultado-busca');
+  const container = document.getElementById('cards-container');
   container.innerHTML = '';
 
   if (termo.length < 3) return;
@@ -106,11 +106,13 @@ function buscarCartas() {
         const quantidade = item ? item.quantidade : 0;
 
         const div = document.createElement('div');
-        div.className = 'card-item';
+        div.className = 'card';
         div.innerHTML = `
           <img src="${imagem}" alt="${nome}">
           <h3>${nome}</h3>
-          <p>${desc}</p>
+          <div class="Descricao_card">
+            <p>${desc}</p>
+          </div>
           <div class="botoes">
             <button onclick="alterarQtd('${nome}', -1)">➖</button>
             <span style="margin: 0 10px;">${quantidade}</span>

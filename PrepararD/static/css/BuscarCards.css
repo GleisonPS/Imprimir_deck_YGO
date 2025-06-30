@@ -102,20 +102,22 @@ body {
 
 /* Carta individual */
 .card {
+
   background-color: #1f0e13;
   border: 2px solid #d4af37;
   border-radius: 8px;
   padding: 10px;
-  width: 200px;
+  /*width: 200px;*/
   text-align: center;
   position: relative;
   box-shadow: 0 0 12px rgba(255, 215, 0, 0.3);
   transition: transform 0.3s;
 }
-
-.card:hover {
-  transform: scale(1.05);
+.Descricao_card {
+  max-width: 95px; /* altura máxima da div */
+  overflow-y: auto;  /* adiciona barra de rolagem vertical quando necessário */
 }
+
 
 .card img {
   width: 100%;
