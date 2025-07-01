@@ -107,14 +107,14 @@ body {
   border: 2px solid #d4af37;
   border-radius: 8px;
   padding: 10px;
-  /*width: 200px;*/
+  width: 200px;
   text-align: center;
   position: relative;
   box-shadow: 0 0 12px rgba(255, 215, 0, 0.3);
   transition: transform 0.3s;
 }
 .Descricao_card {
-  max-width: 95px; /* altura máxima da div */
+  max-height: 150px; /* altura máxima da div */
   overflow-y: auto;  /* adiciona barra de rolagem vertical quando necessário */
 }
 
@@ -122,28 +122,6 @@ body {
 .card img {
   width: 100%;
   border-radius: 6px;
-}
-
-/* Preview ao lado da carta (hover) */
-.preview-card {
-  position: fixed;
-  top: 100px;
-  right: 20px;
-  width: 200px;
-  background-color: #111;
-  color: white;
-  border: 2px solid gold;
-  border-radius: 8px;
-  padding: 10px;
-  z-index: 999;
-  box-shadow: 0 0 10px rgba(255, 215, 0, 0.7);
-  font-family: 'UnifrakturCook', cursive;
-}
-
-.preview-card img {
-  width: 100%;
-  height: auto;
-  border-radius: 4px;
 }
 
 

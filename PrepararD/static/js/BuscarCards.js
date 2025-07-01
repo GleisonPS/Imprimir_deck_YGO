@@ -110,6 +110,7 @@ function buscarCartas() {
         div.innerHTML = `
           <img src="${imagem}" alt="${nome}">
           <h3>${nome}</h3>
+          
           <div class="Descricao_card">
             <p>${desc}</p>
           </div>
@@ -120,17 +121,8 @@ function buscarCartas() {
           </div>
         `;
 
-        div.addEventListener('mouseover', () => {
-          const preview = document.getElementById('preview-card');
-          document.getElementById('preview-img').src = imagem;
-          document.getElementById('preview-desc').innerText = desc;
-          preview.style.display = 'block';
-        });
 
-        div.addEventListener('mouseout', () => {
-          const preview = document.getElementById('preview-card');
-          preview.style.display = 'none';
-        });
+
 
         container.appendChild(div);
       });
