@@ -1,4 +1,4 @@
-let carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
+let carrinho = JSON.parse(localStorage.getItem('cart-item')) || [];
 
 function getCookie(name) {
   let cookieValue = null;
@@ -53,11 +53,11 @@ function atualizarCarrinho() {
   container.appendChild(btn);
 }
 
-function alterarQtd(nome, delta) {
+function alterarQtd(nome,img=null, delta) {
   const item = carrinho.find(c => c.nome === nome);
 
   if (!item && delta > 0) {
-    carrinho.push({ nome: nome, quantidade: 1 });
+    carrinho.push({ nome: nome, quantidade: 1, imagem: img });
   } else if (item) {
     item.quantidade += delta;
     if (item.quantidade <= 0) {
@@ -67,7 +67,7 @@ function alterarQtd(nome, delta) {
     }
   }
 
-  localStorage.setItem('carrinho', JSON.stringify(carrinho));
+  localStorage.setItem('cart-item', JSON.stringify(carrinho));
   atualizarCarrinho();
   buscarCartas(); // Atualiza a exibição
 }
@@ -115,9 +115,9 @@ function buscarCartas() {
             <p>${desc}</p>
           </div>
           <div class="botoes">
-            <button onclick="alterarQtd('${nome}', -1)">➖</button>
+            <button onclick="alterarQtd('${nome}','${imagem}', -1)">➖</button>
             <span style="margin: 0 10px;">${quantidade}</span>
-            <button onclick="alterarQtd('${nome}', 1)">➕</button>
+            <button onclick="alterarQtd('${nome}','${imagem}', 1)">➕</button>
           </div>
         `;
 
