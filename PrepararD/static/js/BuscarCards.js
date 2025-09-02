@@ -53,20 +53,25 @@ function atualizarCarrinho() {
   container.appendChild(btn);
 }
 
-function alterarQtd(nome,img=null, delta) {
+function alterarQtd(nome, delta, img = null) {
   const item = carrinho.find(c => c.nome === nome);
 
   if (!item && delta > 0) {
     carrinho.push({ nome: nome, quantidade: 1, imagem: img });
   } else if (item) {
-    item.quantidade += delta;
+
+    item.quantidade = item.quantidade + parseInt(delta);
+
     if (item.quantidade <= 0) {
+      // remove item com 0 ou menos
       carrinho = carrinho.filter(c => c.nome !== nome);
     } else if (item.quantidade > 3) {
+      // limite de 3 cópias
       item.quantidade = 3;
     }
   }
 
+  // salva no localStorage
   localStorage.setItem('cart-item', JSON.stringify(carrinho));
   atualizarCarrinho();
   buscarCartas(); // Atualiza a exibição
@@ -115,9 +120,9 @@ function buscarCartas() {
             <p>${desc}</p>
           </div>
           <div class="botoes">
-            <button onclick="alterarQtd('${nome}','${imagem}', -1)">➖</button>
-            <span style="margin: 0 10px;">${quantidade}</span>
-            <button onclick="alterarQtd('${nome}','${imagem}', 1)">➕</button>
+            <button onclick="alterarQtd('${nome}', -1,'${imagem}')">➖</button>
+            <span style="margin: 0 10px;"> ${quantidade} </span>
+            <button onclick="alterarQtd('${nome}', 1,'${imagem}')">➕</button>
           </div>
         `;
 
