@@ -59,14 +59,11 @@ function alterarQtd(nome, delta, img = null) {
   if (!item && delta > 0) {
     carrinho.push({ nome: nome, quantidade: 1, imagem: img });
   } else if (item) {
-
     item.quantidade = item.quantidade + parseInt(delta);
 
     if (item.quantidade <= 0) {
-      // remove item com 0 ou menos
       carrinho = carrinho.filter(c => c.nome !== nome);
     } else if (item.quantidade > 3) {
-      // limite de 3 cópias
       item.quantidade = 3;
     }
   }
@@ -74,7 +71,17 @@ function alterarQtd(nome, delta, img = null) {
   // salva no localStorage
   localStorage.setItem('cart-item', JSON.stringify(carrinho));
   atualizarCarrinho();
-  buscarCartas(); // Atualiza a exibição
+
+  // 🔹 Atualiza apenas o contador exibido no card (sem refazer a busca)
+  const cards = document.querySelectorAll('.card');
+  cards.forEach(div => {
+    const nomeCarta = div.querySelector('h3')?.textContent;
+    if (nomeCarta === nome) {
+      const spanQtd = div.querySelector('.botoes span');
+      const qtdAtual = carrinho.find(c => c.nome === nome)?.quantidade || 0;
+      spanQtd.textContent = ` ${qtdAtual} `;
+    }
+  });
 }
 
 function enviarCartas() {
@@ -126,9 +133,6 @@ function buscarCartas() {
           </div>
         `;
 
-
-
-
         container.appendChild(div);
       });
     })
@@ -158,4 +162,3 @@ document.addEventListener('DOMContentLoaded', () => {
     console.warn("Campo de busca não encontrado!");
   }
 });
-
