@@ -60,3 +60,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
   atualizarDeck();
 });
+
+function enviarCartas() {
+  let carrinho = JSON.parse(localStorage.getItem("cart-item")) || [];
+  fetch('/api/carrinho/', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(carrinho),
+  })
+    .then(res => res.json())
+    .then(data => alert('Cartas enviadas com sucesso!'))
+    .catch(() => alert('Erro ao enviar cartas.'));
+}
