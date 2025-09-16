@@ -1,81 +1,40 @@
-/* Fonte principal */
+/* ===== Reset ===== */
 body {
-  font-family: 'Cinzel', serif;
-  background-color: #0e0b16;
-  color: #fffbe6;
+  background-color: #121212;
+  font-family: Arial, sans-serif;
   margin: 0;
-  padding-top: 70px; /* compensar menu fixo */
+  padding: 0;
+  color: white;
 }
 
-/* Menu de navegação fixo */
-.menu-topo {
-  background-color: #1c0f13;
-  border-bottom: 2px solid #d4af37;
-  padding: 10px 0;
-  position: fixed;
+/* ===== Navbar ===== */
+.navbar {
+  background: #1e1e1e;
+  padding: 10px 20px;
+  border-bottom: 2px solid #333;
+  position: sticky;
   top: 0;
-  width: 100%;
   z-index: 1000;
 }
 
-.menu-topo ul {
+.navbar ul {
   list-style: none;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   margin: 0;
   padding: 0;
+  display: flex;
+  gap: 20px;
 }
 
-.menu-topo li {
-  margin: 0 15px;
-  position: relative;
-}
-
-.menu-topo a,
-.dropbtn {
+.navbar a {
   text-decoration: none;
-  font-family: 'Cinzel', serif;
-  font-size: 18px;
-  color: #fffbe6;
-  padding: 8px 12px;
-  border-radius: 4px;
-  background: none;
-  border: none;
-  cursor: pointer;
-  transition: background 0.3s, color 0.3s;
+  color: #ccc;
+  font-weight: bold;
+  transition: color 0.2s;
 }
 
-.menu-topo a:hover,
-.dropbtn:hover {
-  background-color: #d4af37;
-  color: #1c0f13;
-}
-
-/* Dropdown do carrinho */
-.dropdown-content {
-  display: none;
-  position: absolute;
-  right: 0;
-  top: 40px;
-  background-color: #2e1f21;
-  min-width: 250px;
-  max-height: 300px;
-  overflow-y: auto;
-  border: 2px solid #d4af37;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
-  padding: 10px;
-  z-index: 999;
-}
-
-.dropdown:hover .dropdown-content {
-  display: block;
-}
-
-.dropdown-content .botao {
-  width: 100%;
-  margin-top: 10px;
+.navbar a:hover,
+.navbar a.ativo {
+  color: #ffcc00;
 }
 
 /* Campo de busca */

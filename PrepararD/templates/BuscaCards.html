@@ -3,28 +3,22 @@
 <html lang="pt-br">
 <head>
   <meta charset="UTF-8">
-  <title>BuscaCard</title>
-
-  <link rel="icon" href="#">
+  <title>Buscar Cartas</title>
   <link rel="stylesheet" href="{% static 'css/BuscarCards.css' %}">
 </head>
 <body>
 
-  <!-- 🔷 Menu de navegação fixo -->
-  <nav class="menu-topo">
+  <!-- ===== Navbar ===== -->
+  <nav class="navbar">
     <ul>
       <li><a href="{% url 'home' %}">Home</a></li>
-      <li><a href="{% url 'BuscaCard' %}">Buscar Carta</a></li>
-      <li><a href="{% url 'deck' %}">Deck</a></li>
-      <li class="dropdown">
-        <button class="dropbtn">Cartas 🂠</button>
-        <div class="dropdown-content" id="lista-carrinho">
-          <p style="color: #fffbe6;">Nenhuma carta adicionada.</p>
-        </div>
-      </li>
+      <li><a href="#">Buscar Cartas</a></li>
+      <li><a href="{% url 'deck' %}">Meu Deck</a></li>
     </ul>
   </nav>
-  <main>
+
+  <!-- ===== Conteúdo ===== -->
+   <main>
     <h1>Buscar Cartas</h1>
 
     <input type="text" id="input-busca" placeholder="Digite o nome da carta (mín. 3 letras)...">
