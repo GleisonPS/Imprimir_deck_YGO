@@ -1,0 +1,36 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Meu Deck</title>
+  <link rel="stylesheet" href="{% static 'css/deck.css' %}">
+</head>
+<body>
+
+  <!-- ===== Menu de Navegação ===== -->
+  <nav class="navbar">
+    <ul>
+       <li><a href="{% url 'home' %}">Home</a></li>
+      <li><a href="{% url 'BuscaCard' %}">Buscar Carta</a></li>
+      <li><a href="#">Deck</a></li>
+    </ul>
+  </nav>
+
+  <!-- ===== Cabeçalho ===== -->
+  <header class="deck-header">
+    <h1>Meu Deck</h1>
+    <div class="deck-info">
+      <span id="deck-count">0 cartas</span>
+      <button id="limpar-deck" class="limpar-btn">🗑️ Esvaziar Deck</button>
+    </div>
+  </header>
+
+  <!-- ===== Conteúdo Principal ===== -->
+  <main>
+    <div id="deck-container" class="deck-grid"></div>
+  </main>
+
+  <script src="{% static 'js/deck.js' %}"></script>
+</body>
+</html>

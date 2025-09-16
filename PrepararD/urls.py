@@ -6,4 +6,6 @@ urlpatterns = [
 
     path('BuscaCard/', BuscarCards, name='BuscaCard'),  # Página HTML
     path('api/carrinho/', receber_carrinho, name='receber_carrinho'),
+
+    path('deck/', deck, name='deck'),  # Página Deck
 ]

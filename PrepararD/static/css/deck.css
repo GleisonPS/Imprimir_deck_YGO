@@ -1,0 +1,132 @@
+/* ===== Reset ===== */
+body {
+  background-color: #121212;
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  color: white;
+}
+
+/* ===== Navbar ===== */
+.navbar {
+  background: #1e1e1e;
+  padding: 10px 20px;
+  border-bottom: 2px solid #333;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.navbar ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  gap: 20px;
+}
+
+.navbar li {
+  display: inline;
+}
+
+.navbar a {
+  text-decoration: none;
+  color: #ccc;
+  font-weight: bold;
+  transition: color 0.2s;
+}
+
+.navbar a:hover {
+  color: #ffcc00;
+}
+
+.navbar a.ativo {
+  color: #ffcc00;
+  border-bottom: 2px solid #ffcc00;
+  padding-bottom: 2px;
+}
+
+/* ===== Cabeçalho ===== */
+.deck-header {
+  text-align: center;
+  padding: 20px;
+  background: #1e1e1e;
+  border-bottom: 2px solid #333;
+}
+
+.deck-header h1 {
+  margin: 0;
+  font-size: 26px;
+}
+
+.deck-info {
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+}
+
+#deck-count {
+  font-size: 14px;
+  color: #ccc;
+}
+
+/* ===== Botões ===== */
+.limpar-btn {
+  padding: 8px 15px;
+  font-size: 14px;
+  border: none;
+  border-radius: 6px;
+  background: #ff9800;
+  color: white;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.limpar-btn:hover {
+  background: #e67e00;
+}
+
+.remover-btn {
+  margin-top: 5px;
+  padding: 3px 8px;
+  font-size: 12px;
+  border: none;
+  border-radius: 5px;
+  background: #ff4d4d;
+  color: white;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.remover-btn:hover {
+  background: #cc0000;
+}
+
+/* ===== Grid de cartas ===== */
+.deck-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 15px;
+  background-color: #1c1c1c;
+  padding: 15px;
+}
+
+.deck-card {
+  background: #2a2a2a;
+  border-radius: 8px;
+  padding: 5px;
+  text-align: center;
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.2);
+}
+
+.deck-card img {
+  width: 100%;
+  border-radius: 6px;
+  transition: transform 0.2s;
+}
+
+.deck-card img:hover {
+  transform: scale(1.05);
+}
