@@ -8,7 +8,7 @@ def pagina_usuarios(request):
 
 
 def home(request):
-    return render(request, 'resumo.html')
+    return render(request, 'home.html')
 
 
 def BuscarCards(request):
