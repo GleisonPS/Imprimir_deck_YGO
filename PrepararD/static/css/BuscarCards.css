@@ -25,6 +25,10 @@ body {
   gap: 20px;
 }
 
+.navbar li {
+  display: inline;
+}
+
 .navbar a {
   text-decoration: none;
   color: #ccc;
@@ -32,9 +36,14 @@ body {
   transition: color 0.2s;
 }
 
-.navbar a:hover,
+.navbar a:hover {
+  color: #ffcc00;
+}
+
 .navbar a.ativo {
   color: #ffcc00;
+  border-bottom: 2px solid #ffcc00;
+  padding-bottom: 2px;
 }
 
 /* Campo de busca */
