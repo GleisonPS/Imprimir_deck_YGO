@@ -53,11 +53,11 @@ function atualizarCarrinho() {
   container.appendChild(btn);
 }
 
-function alterarQtd(nome, delta, img = null) {
+function alterarQtd(nome, delta, img = null, id = null) {
   const item = carrinho.find(c => c.nome === nome);
 
   if (!item && delta > 0) {
-    carrinho.push({ nome: nome, quantidade: 1, imagem: img });
+    carrinho.push({ nome: nome, quantidade: 1, imagem: img, id: id });
   } else if (item) {
     item.quantidade = item.quantidade + parseInt(delta);
 
@@ -114,6 +114,7 @@ function buscarCartas() {
         const imagem = card.card_images[0].image_url;
         const desc = card.desc;
 
+        const id = card.id;
         const item = carrinho.find(c => c.nome === nome);
         const quantidade = item ? item.quantidade : 0;
 
@@ -127,9 +128,9 @@ function buscarCartas() {
             <p>${desc}</p>
           </div>
           <div class="botoes">
-            <button onclick="alterarQtd('${nome}', -1,'${imagem}')">➖</button>
+            <button onclick="alterarQtd('${nome}', -1,'${imagem}', '${id}')">➖</button>
             <span style="margin: 0 10px;"> ${quantidade} </span>
-            <button onclick="alterarQtd('${nome}', 1,'${imagem}')">➕</button>
+            <button onclick="alterarQtd('${nome}', 1,'${imagem}', '${id}')">➕</button>
           </div>
         `;
 
