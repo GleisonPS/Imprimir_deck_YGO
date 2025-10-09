@@ -1,3 +1,4 @@
+from .Funsoes_deck import Funcoes  # Importa a função para tratar o JSON
 from django.shortcuts import render
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt  # importante!
@@ -26,6 +27,8 @@ def receber_carrinho(request):
         import json
         dados = json.loads(request.body)
         print("Cartas recebidas:", dados)
+        # Aqui você pode adicionar a lógica para tratar os dados recebidos
+        Funcoes.tratar_json(dados)  # Chama a função para tratar o JSON
         return JsonResponse({'mensagem': 'Carrinho recebido com sucesso!'})
     
     return JsonResponse({'erro': 'Método não permitido'}, status=405)

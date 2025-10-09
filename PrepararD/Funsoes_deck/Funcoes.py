@@ -1,4 +1,5 @@
 import os
+from django.conf import settings  # importa BASE_DIR
 import urllib.request as request
 from docx import Document
 from docx.shared import Inches,Mm
@@ -6,18 +7,23 @@ from docx.enum.section import WD_ORIENT
 
 def baixarImagem(id_card):
     url = "https://images.ygoprodeck.com/images/cards/"
-    pasta = "Cards"
 
-   # Verifica se a pasta existe, caso contrário, cria
+    # Caminho relativo ao manage.py
+    pasta = os.path.join(settings.BASE_DIR, "PrepararD", "Funsoes_deck", "Cards")
+
+    # Cria a pasta se não existir
     if not os.path.exists(pasta):
         os.makedirs(pasta)
 
+    caminho_arquivo = os.path.join(pasta, f"{id_card}.jpg")
+
     try:
-        if not os.path.isfile(f"{pasta}/{id_card}.jpg"):
-            request.urlretrieve(f"{url}{id_card}.jpg", f"{pasta}/{id_card}.jpg")
+        if not os.path.isfile(caminho_arquivo):
+            request.urlretrieve(f"{url}{id_card}.jpg", caminho_arquivo)
+            print(f"Imagem salva em: {caminho_arquivo}")
     except Exception as ex:
         print(f"Erro ao baixar a imagem: {ex}")
-
+        
 def LerCodsCard(CodCards):
     rejeitar = ['#created by', '#main', '#extra', '!side', '\n']
     for cod in CodCards:
@@ -25,7 +31,16 @@ def LerCodsCard(CodCards):
             continue
         baixarImagem(cod)
 
+#Adicionar a função que vai receber o Json e tratar ele
+def tratar_json(json_data):
+    # Exemplo de tratamento do JSON
 
+    for item in json_data:
+        id_card = item.get('id')
+        if id_card:
+            print(f"Baixando imagem para o ID da carta: {id_card}")
+            baixarImagem(id_card)
+                
 if __name__ == "__main__":
     
 
