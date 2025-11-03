@@ -20,9 +20,12 @@ def baixarImagem(id_card):
     try:
         if not os.path.isfile(caminho_arquivo):
             request.urlretrieve(f"{url}{id_card}.jpg", caminho_arquivo)
-            print(f"Imagem salva em: {caminho_arquivo}")
+            #print(f"Imagem salva em: {caminho_arquivo}")
     except Exception as ex:
-        print(f"Erro ao baixar a imagem: {ex}")
+        from django.contrib import messages
+        
+        messages.error(request, "Ocorreu um erro!")
+
         
 def LerCodsCard(CodCards):
     rejeitar = ['#created by', '#main', '#extra', '!side', '\n']
@@ -36,13 +39,25 @@ def tratar_json(json_data):
     # Exemplo de tratamento do JSON
 
     for item in json_data:
-        id_card = item.get('id')
-        if id_card:
-            print(f"Baixando imagem para o ID da carta: {id_card}")
-            baixarImagem(id_card)
+        try:
+            id_card = item.get('id')
+            if id_card:
+                print(f"Baixando imagem para o ID da carta: {id_card}")
+                baixarImagem(id_card)
+        except Exception as ex:
+            print(f"Erro ao processar item {item}: {ex}")
                 
 if __name__ == "__main__":
-    
+    import json
+
+     # Muda para a pasta onde o script está
+    os.chdir(os.path.dirname(os.path.abspath(__file__)))
+# Abre o arquivo JSON
+    with open('Teste.json', 'r', encoding='utf-8') as arquivo:
+        dados = json.load(arquivo)
+    tratar_json(dados)
+
+    '''
 
     # Muda para a pasta onde o script está
     os.chdir(os.path.dirname(os.path.abspath(__file__)))
@@ -54,6 +69,7 @@ if __name__ == "__main__":
     #print(cod_cards)
     
     LerCodsCard(cod_cards)
-    '''id_card = 64276752  # Exemplo de ID de carta
+    id_card = 64276752  # Exemplo de ID de carta
     baixarImagem(id_card)
-    '''
+    
+'''

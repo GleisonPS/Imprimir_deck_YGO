@@ -26,7 +26,7 @@ def receber_carrinho(request):
     if request.method == 'POST':
         import json
         dados = json.loads(request.body)
-        print("Cartas recebidas:", dados)
+        #print("Cartas recebidas:", dados)
         # Aqui você pode adicionar a lógica para tratar os dados recebidos
         Funcoes.tratar_json(dados)  # Chama a função para tratar o JSON
         return JsonResponse({'mensagem': 'Carrinho recebido com sucesso!'})
