@@ -23,8 +23,7 @@ def baixarImagem(id_card):
             #print(f"Imagem salva em: {caminho_arquivo}")
     except Exception as ex:
         from django.contrib import messages
-        
-        messages.error(request, "Ocorreu um erro!")
+        messages.error(request, "Ocorreu um erro em baixar imagem!")
 
         
 def LerCodsCard(CodCards):
@@ -42,10 +41,13 @@ def tratar_json(json_data):
         try:
             id_card = item.get('id')
             if id_card:
-                print(f"Baixando imagem para o ID da carta: {id_card}")
+                #print(f"Baixando imagem para o ID da carta: {id_card}")
                 baixarImagem(id_card)
         except Exception as ex:
-            print(f"Erro ao processar item {item}: {ex}")
+            from django.contrib import messages
+
+            messages.error(request, "Ocorreu um erro em processar item!")
+#            print(f"Erro ao processar item {item}: {ex}")
                 
 if __name__ == "__main__":
     import json
